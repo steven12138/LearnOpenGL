@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.22)
 
-project(OpenCVTest)
+project(LearnOpenGL)
 
 set(CMAKE_CXX_STANDARD 20)
 
@@ -24,7 +24,10 @@ endif ()
 include_directories(external/stbImage)
 
 # Code Sources
-set(CODE_SOURCES ${CODE_SOURCES} src/main.cpp)
+set(CODE_SOURCES ${CODE_SOURCES}
+        src/main.cpp
+        src/shader/shader.cpp
+        src/texture/texture2D.cpp)
 
 # Code Headers
 set(CODE_HEADER ${CODE_HEADER}
@@ -42,8 +45,17 @@ set(CODE_HEADER ${CODE_HEADER}
 #endforeach ()
 
 set(STATIC_FILE_PATH \"${PROJECT_SOURCE_DIR}\")
-message(STATIC_FILE_PATH:  ${STATIC_FILE_PATH})
 add_compile_definitions(STATIC_FILE_PATH=${STATIC_FILE_PATH})
+
+function(printDIR NAME VAR)
+    message(\n${NAME}: )
+    foreach (ITEM ${VAR})
+        message(${ITEM})
+    endforeach ()
+endfunction()
+
+printDIR(CODE_SOURCES "${CODE_SOURCES}")
+printDIR(CODE_SOURCES "${CODE_HEADERS}")
 
 add_executable(${PROJECT_NAME} ${CODE_SOURCES} ${CODE_HEADER})
 

@@ -5,8 +5,6 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 
-#include <stb_image.h>
-
 #include "shader/shader.hpp"
 #include "texture/texture2D.hpp"
 
