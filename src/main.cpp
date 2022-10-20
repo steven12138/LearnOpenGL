@@ -8,6 +8,7 @@
 #include <stb_image.h>
 
 #include "shader/shader.hpp"
+#include "texture/texture2D.hpp"
 
 auto ResizeListener(GLFWwindow *window, int width, int height) -> void;
 
@@ -45,8 +46,8 @@ auto main() -> int {
     std::cout << "maximum nr of vertex attributes supported: " << nrAttributes << std::endl;
     // output 16
 
-    const char *vPath = STATIC_FILE_PATH"/static/shader/vertexShader.glsl";
-    const char *fPath = STATIC_FILE_PATH"/static/shader/fragmentShader.glsl";
+    const char *vPath = STATIC_FILE_PATH"/static/shader/vertexShader.vert";
+    const char *fPath = STATIC_FILE_PATH"/static/shader/fragmentShader.frag";
 
 //    shader::ShaderProgram shaderChain(vPath, fPath);
     shader::Shader vertexShader(vPath, GL_VERTEX_SHADER);
@@ -58,11 +59,11 @@ auto main() -> int {
             .load();
 
     float vertices[] = {
-            //     ---- 位置 ----               ---- 颜色 ----              - 纹理坐标 -
-            0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,   // 右上
-            0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,   // 右下
-            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,   // 左下
-            -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f    // 左上
+            // positions                     // colors                         // texture coords
+            0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, .2f, 1.0f, // top right
+            0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // bottom right
+            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom left
+            -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f  // top left
     };
 
     unsigned int indices[] = {
@@ -74,29 +75,7 @@ auto main() -> int {
             1, 2, 3  // 第二个三角形
     };
 
-    //创建纹理对象
-    unsigned int texture;
-    glGenTextures(1, &texture);
-    glBindTexture(GL_TEXTURE_2D, texture);
-
-    //设置纹理对象的环绕和过滤方式
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    // 加载纹理，三个变量：宽度高度和图像颜色通道数量
-    int width, height, nrChannels;
-    std::cout << "Texture Path: " << STATIC_FILE_PATH "/static/texture2D/wall.jpg" << std::endl;
-    unsigned char *data = stbi_load(STATIC_FILE_PATH "/static/texture2D/wall.jpg", &width, &height, &nrChannels, 0);
-    if (data) {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);:::
-    } else {
-        std::cerr << "ERROR::FAILED_TO_LOAD_TEXTURE" << std::endl;
-        return -1;
-    }
-    stbi_image_free(data);
+    texture::texture2DLoader<> wallTexture(STATIC_FILE_PATH "/static/texture2D/wall.jpg");
 
     unsigned int VAO, VBO, EBO;
     glGenVertexArrays(1, &VAO);
@@ -134,7 +113,7 @@ auto main() -> int {
 
 
         shaderChain.use();
-        glBindTexture(GL_TEXTURE_2D, texture);
+        wallTexture.use();
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 

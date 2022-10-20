@@ -1,0 +1,6 @@
+"/Users/twt/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/222.4345.21/CLion.app/Contents/bin/cmake/mac/bin/cmake" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=make -DCMAKE_CXX_COMPILER=g++ -G "CodeBlocks - Unix Makefiles" -S /Users/twt/CLionProjects/LearnOpenGL -B /Users/twt/CLionProjects/LearnOpenGL/cmake-build-debug
+-- Using Cocoa for window creation
+STATIC_FILE_PATH:"/Users/twt/CLionProjects/LearnOpenGL"
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/twt/CLionProjects/LearnOpenGL/cmake-build-debug

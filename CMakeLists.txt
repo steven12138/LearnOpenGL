@@ -27,7 +27,9 @@ include_directories(external/stbImage)
 set(CODE_SOURCES ${CODE_SOURCES} src/main.cpp)
 
 # Code Headers
-set(CODE_HEADER ${CODE_HEADER} src/shader/shader.hpp src/shader/shader.hpp src/texture/texture2D.hpp)
+set(CODE_HEADER ${CODE_HEADER}
+        src/shader/shader.hpp
+        src/texture/texture2D.hpp)
 
 # Static Files
 #file(GLOB_RECURSE STATICS static/*)
