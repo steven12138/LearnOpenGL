@@ -15,7 +15,6 @@ namespace texture {
     template<GLint s = GL_REPEAT, GLint t = GL_REPEAT, GLint minF = GL_LINEAR, GLint magF = GL_LINEAR>
     class texture2DLoader {
     public:
-
         class repeatTextureUnitException : std::exception {
         };
 
@@ -38,13 +37,9 @@ namespace texture {
 
         };
 
-        explicit texture2DLoader() = delete;
-
-        explicit texture2DLoader(const texture2DLoader &) = delete;
-
         explicit texture2DLoader(const char *texturePath);
 
-        auto addTexture(const char *texturePath, GLenum textureUnit) -> void;
+        auto addTexture(const char *texturePath, GLenum textureUnit) -> texture2DLoader &;
 
         auto use() -> void;
 
@@ -73,7 +68,7 @@ namespace texture {
     }
 
     template<GLint s, GLint t, GLint minF, GLint magF>
-    auto texture2DLoader<s, t, minF, magF>::addTexture(const char *texturePath, GLenum textureUnit) -> void {
+    auto texture2DLoader<s, t, minF, magF>::addTexture(const char *texturePath, GLenum textureUnit) -> texture2DLoader& {
         if (this->isUnitUnique[textureUnit]) {
             std::cerr << "ERROR::REPEAT_TEXTURE_UNIT" << std::endl;
             throw repeatTextureUnitException();
@@ -88,6 +83,7 @@ namespace texture {
 
         attr = loadTexture(texturePath);
         textures.emplace_back(texture2D(textureID, attr));
+        return *this;
     }
 
 

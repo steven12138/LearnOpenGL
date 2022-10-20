@@ -6,6 +6,12 @@
 namespace shader {
     class Shader {
     public:
+        class shaderCompileError : std::exception {
+        };
+
+        class shaderFileLoadException : std::exception {
+        };
+
         explicit Shader(const char *path, GLenum shaderType);
 
         explicit Shader(const Shader &shader) = delete;
@@ -20,9 +26,14 @@ namespace shader {
     };
 
 
-
     class ShaderProgram {
     public:
+
+        class programNotConstructedException : std::exception {
+        };
+
+        class programLinkError : std::exception {
+        };
 
         explicit ShaderProgram() = default;
 
@@ -43,6 +54,7 @@ namespace shader {
     private:
         std::vector<unsigned int> shaderChain{};
         unsigned int programID{};
+        bool programIsReady = false;
 
         auto linkShader() const -> void;
     };

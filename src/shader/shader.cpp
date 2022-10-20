@@ -7,7 +7,7 @@
 #include <iostream>
 #include <vector>
 
-namespace shader{
+namespace shader {
 
     Shader::Shader(const char *path, GLenum shaderType) {
         std::ifstream shaderFile;
@@ -19,8 +19,9 @@ namespace shader{
             std::stringstream codeStream;
             codeStream << shaderFile.rdbuf();
             shaderCode = codeStream.str();
-        } catch (std::fstream::failure) {
-            std::cerr << "ERROR::COULD_NOT_OPEN_FILE" << std::endl;
+        } catch (std::fstream::failure &e) {
+            std::cerr << "ERROR::COULD_NOT_OPEN_FILE" << std::endl << e.what() << std::endl;
+            throw shaderFileLoadException();
         }
         shaderID = glCreateShader(shaderType);
         const char *fShaderCode = shaderCode.c_str();
@@ -33,6 +34,7 @@ namespace shader{
             char log[512];
             glGetShaderInfoLog(shaderID, 512, nullptr, log);
             std::cerr << "ERROR::COMPILE::SHADER: " << log << std::endl;
+            throw shaderCompileError();
         }
     }
 
@@ -64,6 +66,7 @@ namespace shader{
     }
 
     auto ShaderProgram::use() const -> void {
+        if (!programIsReady) throw programNotConstructedException();
         glUseProgram(programID);
     }
 
@@ -84,6 +87,7 @@ namespace shader{
             glAttachShader(programID, shader);
         });
         linkShader();
+        programIsReady = true;
     }
 
     auto ShaderProgram::linkShader() const -> void {
@@ -94,7 +98,7 @@ namespace shader{
             char log[512];
             glGetProgramInfoLog(programID, 512, nullptr, log);
             std::cerr << "ERROR::SHADER_PROGRAM_LINKIN " << log << std::endl;
+            throw programLinkError();
         }
     }
-
 }
