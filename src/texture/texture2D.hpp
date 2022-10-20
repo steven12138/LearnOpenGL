@@ -20,6 +20,8 @@ namespace texture {
         struct textureAttrib {
             int width, height, nrChannels;
 
+            textureAttrib() = default;
+
             explicit textureAttrib(int width, int height, int nrChannels)
                     : width(width), height(height), nrChannels(nrChannels) {}
         };
@@ -27,6 +29,8 @@ namespace texture {
         struct texture2D {
             unsigned int textureID;
             textureAttrib attr;
+
+            texture2D() = default;
 
             texture2D(unsigned int textureId, const textureAttrib &attr) : textureID(textureId), attr(attr) {}
         };
@@ -42,8 +46,11 @@ namespace texture {
         auto use() -> void;
 
     private:
-        std::vector<textureAttrib> textures;
-        static std::map<GLenum, bool> isUnitUnique;
+//        std::vector<textureAttrib> textures;
+//        static std::map<GLenum, bool> isUnitUnique;
+
+        unsigned int textureID{};
+        textureAttrib attr{};
 
         static auto setDefaultParams() -> void;
 
@@ -67,25 +74,25 @@ namespace texture {
 
     template<GLint s, GLint t, GLint minF, GLint magF>
     auto texture2DLoader<s, t, minF, magF>::use() -> void {
-        glBindTexture(GL_TEXTURE_2D, textures[0].textureID);
+        glBindTexture(GL_TEXTURE_2D, textureID);
     }
 
     template<GLint s, GLint t, GLint minF, GLint magF>
     auto texture2DLoader<s, t, minF, magF>::addTexture(const char *texturePath, GLenum textureUnit) -> void {
-        if (isUnitUnique[textureUnit]) {
-            std::cerr << "ERROR::REPEAT_TEXTURE_UNIT" << std::endl;
-            return ;
-        }
-        isUnitUnique[textureUnit] = true;
+//        if (isUnitUnique[textureUnit]) {
+//            std::cerr << "ERROR::REPEAT_TEXTURE_UNIT" << std::endl;
+//            return;
+//        }
+//        isUnitUnique[textureUnit] = true;
 
-        unsigned int textureID;
+//        unsigned int textureID;
         glGenTextures(1, &textureID);
         glActiveTexture(textureUnit);
         glBindTexture(GL_TEXTURE_2D, textureID);
         setDefaultParams();
 
-        auto attr = loadTexture(texturePath);
-        textures.emplace_back(texture2D(textureID, attr));
+        attr = loadTexture(texturePath);
+//        textures.emplace_back(texture2D(textureID, attr));
     }
 
     template<GLint s, GLint t, GLint minF, GLint magF>

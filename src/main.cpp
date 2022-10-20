@@ -60,7 +60,7 @@ auto main() -> int {
 
     float vertices[] = {
             // positions                     // colors                         // texture coords
-            0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, .2f, 1.0f, // top right
+            0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // top right
             0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // bottom right
             -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom left
             -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f  // top left
@@ -74,8 +74,6 @@ auto main() -> int {
             0, 1, 3, // 第一个三角形
             1, 2, 3  // 第二个三角形
     };
-
-    texture::texture2DLoader<> wallTexture(STATIC_FILE_PATH "/static/texture2D/wall.jpg");
 
     unsigned int VAO, VBO, EBO;
     glGenVertexArrays(1, &VAO);
@@ -92,16 +90,18 @@ auto main() -> int {
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) 0);
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) (3 * sizeof(float)));
-    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) (3 * sizeof(float)));
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void *) (6 * sizeof(float)));
+
     glEnableVertexAttribArray(0);
     glEnableVertexAttribArray(1);
     glEnableVertexAttribArray(2);
+
+    texture::texture2DLoader<> wallTexture(STATIC_FILE_PATH "/static/texture2D/container.jpg");
 
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
-    int i = 0;
     while (!glfwWindowShouldClose(window)) {
         //处理输入事件
         ProcessInput(window);
@@ -111,9 +111,8 @@ auto main() -> int {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-
-        shaderChain.use();
         wallTexture.use();
+        shaderChain.use();
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 

@@ -24,14 +24,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ef6f9b8-dac4-46c0-ab16-701d4f0b1ec4" name="变更" comment="">
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/glfw-3.3.8/docs/html/moving_guide.html" beforeDir="false" afterPath="$PROJECT_DIR$/external/glfw-3.3.8/docs/html/moving_guide.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/glfw-3.3.8/docs/moving.dox" beforeDir="false" afterPath="$PROJECT_DIR$/external/glfw-3.3.8/docs/moving.dox" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/external/stbImage/stb_image.h" beforeDir="false" afterPath="$PROJECT_DIR$/external/stbImage/stb_image.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/texture2D/container.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/10" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/11" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/12" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/13" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/14" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/15" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/16" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/17" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/18" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/19" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/5" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/6" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/7" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/8" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/9" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Progress/count.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/OpenCVTest" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/OpenCVTest" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/texture/texture2D.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/texture/texture2D.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/shader/fragmentShader.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/static/shader/fragmentShader.frag" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/shader/vertexShader.glsl" beforeDir="false" afterPath="$PROJECT_DIR$/static/shader/vertexShader.vert" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/shader/fragmentShader.frag" beforeDir="false" afterPath="$PROJECT_DIR$/static/shader/fragmentShader.frag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/shader/vertexShader.vert" beforeDir="false" afterPath="$PROJECT_DIR$/static/shader/vertexShader.vert" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,6 +92,11 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/static/texture2D" />
+    </key>
+  </component>
   <component name="RunManager" selected="CMake 应用程序.OpenCVTest">
     <configuration name="OpenCVTest" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="OpenCVTest" TARGET_NAME="OpenCVTest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="OpenCVTest" RUN_TARGET_NAME="OpenCVTest">
       <method v="2">
@@ -116,7 +139,7 @@
       <option name="presentableId" value="Default" />
       <updated>1666268299074</updated>
       <workItem from="1666268301583" duration="199000" />
-      <workItem from="1666268527898" duration="4653000" />
+      <workItem from="1666268527898" duration="5948000" />
     </task>
     <servers />
   </component>
