@@ -151,7 +151,7 @@ auto main() -> int {
 
         transform = glm::mat4(1.0f); // reset it to identity matrix
         transform = glm::translate(transform, glm::vec3(-0.5f, 0.5f, 0.0f));
-        float scaleAmount = static_cast<float>(sin(glfwGetTime() * 2));
+        auto scaleAmount = static_cast<float>(sin(glfwGetTime() * 2));
         transform = glm::scale(transform, glm::vec3(scaleAmount, scaleAmount, scaleAmount));
 
         shaderChain.setTrans("transform", transform);
