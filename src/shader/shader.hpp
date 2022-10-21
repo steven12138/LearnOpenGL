@@ -49,7 +49,9 @@ namespace shader {
 
         auto load() -> void;
 
-        auto set1v(const std::string &name, float value) const -> void;
+        auto set(const std::string &name, float value) const -> void;
+
+        auto set(const std::string &name, int value) const -> void;
 
     private:
         std::vector<unsigned int> shaderChain{};

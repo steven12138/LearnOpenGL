@@ -25,10 +25,12 @@
   <component name="ChangeListManager">
     <list default="true" id="1ef6f9b8-dac4-46c0-ab16-701d4f0b1ec4" name="变更" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/texture/texture2D.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shader/shader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/shader/shader.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shader/shader.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/shader/shader.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/texture/texture2D.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/texture/texture2D.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/shader/fragmentShader.frag" beforeDir="false" afterPath="$PROJECT_DIR$/static/shader/fragmentShader.frag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/texture2D/awesomeface.png" beforeDir="false" afterPath="$PROJECT_DIR$/static/texture2D/face.png" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,7 +135,7 @@
       <option name="presentableId" value="Default" />
       <updated>1666268299074</updated>
       <workItem from="1666268301583" duration="199000" />
-      <workItem from="1666268527898" duration="13948000" />
+      <workItem from="1666268527898" duration="16708000" />
     </task>
     <servers />
   </component>

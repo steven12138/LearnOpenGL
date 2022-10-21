@@ -60,10 +60,10 @@ auto main() -> int {
 
     float vertices[] = {
             // positions                     // colors                         // texture coords
-            0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // top right
-            0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // bottom right
-            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom left
-            -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f  // top left
+            0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // top right
+            0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, // bottom right
+            -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, // bottom left
+            -0.5f, 0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 0.0f  // top left
     };
 
     unsigned int indices[] = {
@@ -92,12 +92,26 @@ auto main() -> int {
     glEnableVertexAttribArray(1);
     glEnableVertexAttribArray(2);
 
-    texture::texture2DLoader wallTexture(STATIC_FILE_PATH "/static/texture2D/container.jpg");
-    wallTexture.addTexture(STATIC_FILE_PATH"/static/texture2D/awesomeface.png", GL_TEXTURE1);
+    texture::texture2DLoader wallTexture;
+    wallTexture
+            .addTexture(STATIC_FILE_PATH"/static/texture2D/container.jpg",
+                        GL_TEXTURE0)
+            .addTexture(STATIC_FILE_PATH"/static/texture2D/face.png",
+                        GL_TEXTURE1, GL_RGBA);
 
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+
+    shaderChain.use();
+
+    glUniform1i(glGetUniformLocation(shaderChain.getProgram(), "texture1"), 0);
+    // or set it via the texture class
+    shaderChain.set("texture2", (int) 1);
+
+//    shaderChain.set("texture1", 0);
+//    shaderChain.set("texture2", 1);
 
     while (!glfwWindowShouldClose(window)) {
         //处理输入事件
@@ -108,8 +122,6 @@ auto main() -> int {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        wallTexture.use();
-        shaderChain.use();
         glBindVertexArray(VAO);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 

@@ -71,9 +71,14 @@ namespace shader {
     }
 
 
-    auto ShaderProgram::set1v(const std::string &name, float value) const -> void {
+    auto ShaderProgram::set(const std::string &name, float value) const -> void {
         auto location = glGetUniformLocation(programID, name.c_str());
         glUniform1f(location, value);
+    }
+
+    auto ShaderProgram::set(const std::string &name, int value) const -> void {
+        auto location = glGetUniformLocation(programID, name.c_str());
+        glUniform1i(location, value);
     }
 
     auto ShaderProgram::add(Shader &&shader) -> ShaderProgram & {
