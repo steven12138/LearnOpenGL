@@ -20,6 +20,11 @@ if (NOT WIN32)
     LIST(APPEND LIBS dl)
 endif ()
 
+#GLM
+add_subdirectory(external/glm)
+include_directories(external/glm/glm)
+LIST(APPEND LIBS glm)
+
 # stbImage
 include_directories(external/stbImage)
 
@@ -47,7 +52,7 @@ set(STATIC_FILE_PATH \"${PROJECT_SOURCE_DIR}\")
 add_compile_definitions(STATIC_FILE_PATH=${STATIC_FILE_PATH})
 
 function(printDIR NAME VAR)
-    message(\n${NAME}: )
+    message(\n${NAME}:)
     foreach (ITEM ${VAR})
         message(${ITEM})
     endforeach ()

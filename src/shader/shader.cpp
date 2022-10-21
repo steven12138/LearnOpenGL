@@ -106,4 +106,9 @@ namespace shader {
             throw programLinkError();
         }
     }
+
+    auto ShaderProgram::setTrans(const std::string &name, glm::mat4 &trans) const -> void {
+        auto transformLoc = glGetUniformLocation(programID, name.c_str());
+        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
+    }
 }

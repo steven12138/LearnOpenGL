@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glad/glad.h>
+#include <glm/gtc/type_ptr.hpp>
 #include <vector>
 
 namespace shader {
@@ -52,6 +53,8 @@ namespace shader {
         auto set(const std::string &name, float value) const -> void;
 
         auto set(const std::string &name, int value) const -> void;
+
+        auto setTrans(const std::string &name, glm::mat4& trans) const -> void;
 
     private:
         std::vector<unsigned int> shaderChain{};

@@ -89,7 +89,9 @@ namespace texture {
     auto texture2DLoader::
     use() -> void {
         if (textures.empty()) return;
-        glBindTexture(GL_TEXTURE_2D, textures[0].textureID);
+        for (const auto &texture: textures) {
+            glBindTexture(GL_TEXTURE_2D, texture.textureID);
+        }
     }
 
 
