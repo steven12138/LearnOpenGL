@@ -39,6 +39,8 @@ auto main() -> int {
     }
     glViewport(0, 0, 800, 600);
     glfwSetFramebufferSizeCallback(window, ResizeListener);
+
+
     int nrAttributes;
     glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
     std::cout << "maximum nr of vertex attributes supported: " << nrAttributes << std::endl;
@@ -90,7 +92,7 @@ auto main() -> int {
     glEnableVertexAttribArray(1);
     glEnableVertexAttribArray(2);
 
-    texture::texture2DLoader<> wallTexture(STATIC_FILE_PATH "/static/texture2D/container.jpg");
+    texture::texture2DLoader wallTexture(STATIC_FILE_PATH "/static/texture2D/container.jpg");
     wallTexture.addTexture(STATIC_FILE_PATH"/static/texture2D/awesomeface.png", GL_TEXTURE1);
 
     glBindVertexArray(0);

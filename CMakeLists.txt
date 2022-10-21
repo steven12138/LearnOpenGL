@@ -26,8 +26,7 @@ include_directories(external/stbImage)
 # Code Sources
 set(CODE_SOURCES ${CODE_SOURCES}
         src/main.cpp
-        src/shader/shader.cpp
-        src/texture/texture2D.cpp)
+        src/shader/shader.cpp)
 
 # Code Headers
 set(CODE_HEADER ${CODE_HEADER}

@@ -57,18 +57,14 @@ namespace texture {
 
 
     template<GLint s, GLint t, GLint minF, GLint magF>
-    auto texture2DLoader<s, t, minF, magF>::use() -> void {
-        if (textures.empty()) return;
-        glBindTexture(GL_TEXTURE_2D, textures[0].textureID);
-    }
-
-    template<GLint s, GLint t, GLint minF, GLint magF>
     texture2DLoader<s, t, minF, magF>::texture2DLoader(const char *texturePath) {
         addTexture(texturePath, GL_TEXTURE0);
     }
 
+
     template<GLint s, GLint t, GLint minF, GLint magF>
-    auto texture2DLoader<s, t, minF, magF>::addTexture(const char *texturePath, GLenum textureUnit) -> texture2DLoader& {
+    auto
+    texture2DLoader<s, t, minF, magF>::addTexture(const char *texturePath, GLenum textureUnit) -> texture2DLoader & {
         if (this->isUnitUnique[textureUnit]) {
             std::cerr << "ERROR::REPEAT_TEXTURE_UNIT" << std::endl;
             throw repeatTextureUnitException();
@@ -84,6 +80,12 @@ namespace texture {
         attr = loadTexture(texturePath);
         textures.emplace_back(texture2D(textureID, attr));
         return *this;
+    }
+
+    template<GLint s, GLint t, GLint minF, GLint magF>
+    auto texture2DLoader<s, t, minF, magF>::use() -> void {
+        if (textures.empty()) return;
+        glBindTexture(GL_TEXTURE_2D, textures[0].textureID);
     }
 
 
