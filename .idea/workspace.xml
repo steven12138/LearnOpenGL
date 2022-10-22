@@ -26,7 +26,6 @@
     <list default="true" id="1ef6f9b8-dac4-46c0-ab16-701d4f0b1ec4" name="变更" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/shader/vertexShader.vert" beforeDir="false" afterPath="$PROJECT_DIR$/static/shader/vertexShader.vert" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +131,7 @@
       <option name="presentableId" value="Default" />
       <updated>1666268299074</updated>
       <workItem from="1666268301583" duration="199000" />
-      <workItem from="1666268527898" duration="30916000" />
+      <workItem from="1666268527898" duration="31996000" />
     </task>
     <servers />
   </component>

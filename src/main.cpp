@@ -29,9 +29,18 @@ auto getModel() -> glm::mat4 {
     return glm::rotate(model, glm::radians(-55.0f), glm::vec3{1, 0, 0});
 }
 
+glm::vec3 pos{0, 0, -3};
+glm::vec2 cam{0, 0};
+
 auto getView() -> glm::mat4 {
     glm::mat4 view{1};
-    return glm::translate(view, glm::vec3{0, 0, -3});
+    view = glm::rotate(view, cam.x,
+                       glm::vec3{1, 0, 0});
+    view = glm::rotate(view, cam.y,
+                       glm::vec3{0, 1, 0});
+
+    view = glm::translate(view, pos);
+    return view;
 }
 
 auto getProjection() -> glm::mat4 {
@@ -42,7 +51,6 @@ auto getProjection() -> glm::mat4 {
 
 auto main() -> int {
 
-    auto &&view = getView();
     auto &&projection = getProjection();
 
 
@@ -176,7 +184,6 @@ auto main() -> int {
 
     shaderChain.use();
 
-    shaderChain.setTrans("view", view);
     shaderChain.setTrans("projection", projection);
 
     glUniform1i(glGetUniformLocation(shaderChain.getProgram(), "texture1"), 0);
@@ -222,6 +229,8 @@ auto main() -> int {
             model = glm::rotate(model, (float) glfwGetTime() * glm::radians(90.0f) + angle,
                                 glm::vec3{0.5, 1, 0});
             shaderChain.setTrans("model", model);
+            auto &&view = getView();
+            shaderChain.setTrans("view", view);
             glDrawArrays(GL_TRIANGLES, 0, 36);
         }
 
@@ -241,8 +250,54 @@ auto ResizeListener(GLFWwindow *window, int width, int height) -> void {
     glViewport(0, 0, width, height);
 }
 
+
 auto ProcessInput(GLFWwindow *window) -> void {
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+#define PRESS(KEY) (glfwGetKey(window, (KEY)) == GLFW_PRESS)
+    if (PRESS(GLFW_KEY_ESCAPE)) {
         glfwSetWindowShouldClose(window, true);
     }
+    if (PRESS(GLFW_KEY_W)) {
+        pos += glm::vec3{0, 0, 0.1};
+    }
+
+
+    if (PRESS(GLFW_KEY_S)) {
+        pos += glm::vec3{0, 0, -0.1};
+    }
+
+
+    if (PRESS(GLFW_KEY_A)) {
+        pos += glm::vec3{0.1, 0, 0};
+    }
+
+    if (PRESS(GLFW_KEY_D)) {
+        pos += glm::vec3{-0.1, 0, 0};
+    }
+
+    if (PRESS(GLFW_KEY_LEFT_SHIFT)) {
+        pos += glm::vec3{0, 0.1, 0};
+    }
+
+    if (PRESS(GLFW_KEY_SPACE)) {
+        pos += glm::vec3{0, -0.1, 0};
+    }
+
+    if (PRESS(GLFW_KEY_UP)) {
+        cam += glm::vec2{-0.03, 0};
+    }
+    if (PRESS(GLFW_KEY_DOWN)) {
+        cam += glm::vec2{0.03, 0};
+    }
+    if (PRESS(GLFW_KEY_LEFT)) {
+        cam += glm::vec2{0, -0.03};
+    }
+    if (PRESS(GLFW_KEY_RIGHT)) {
+        cam += glm::vec2{0, 0.03};
+    }
+
+    if (PRESS(GLFW_KEY_R)) {
+        cam = glm::vec2{0, 0};
+    }
+
+#undef PRESS(KEY)
 }
