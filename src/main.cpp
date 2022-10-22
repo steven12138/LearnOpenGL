@@ -138,24 +138,22 @@ auto main() -> int {
 
         wallTexture.use();
 
-        glm::mat4 transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-        // first container
-        // ---------------
-        transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
-        transform = glm::rotate(transform, (float) glfwGetTime() * 2, glm::vec3(0.0f, 0.0f, 1.0f));
-        // get their uniform location and set matrix (using glm::value_ptr)
-        shaderChain.setTrans("transform", transform);
-
+        glm::mat4 transform = glm::mat4(1.0f);
         glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-        transform = glm::mat4(1.0f); // reset it to identity matrix
-        transform = glm::translate(transform, glm::vec3(-0.5f, 0.5f, 0.0f));
+        transform = glm::mat4(1.0f);
+        transform = glm::translate(transform, glm::vec3(0.5f, -0.5f, 0.0f));
         auto scaleAmount = static_cast<float>(sin(glfwGetTime() * 2));
         transform = glm::scale(transform, glm::vec3(scaleAmount, scaleAmount, scaleAmount));
-
         shaderChain.setTrans("transform", transform);
-        // now with the uniform matrix being replaced with new transformations, draw it again.
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+
+        transform = glm::mat4(1.0f);
+        transform = glm::translate(transform, glm::vec3(-0.5f, -0.5f, 0.0f));
+        scaleAmount = static_cast<float>(sin(glfwGetTime() * 2));
+        transform = glm::scale(transform, glm::vec3(scaleAmount, scaleAmount, scaleAmount));
+        shaderChain.setTrans("transform", transform);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         //检查调取事件，并交换缓冲
@@ -169,7 +167,7 @@ auto main() -> int {
 }
 
 auto ResizeListener(GLFWwindow *window, int width, int height) -> void {
-    glViewport(0, 0, height, width);
+    glViewport(0, 0, width, height);
 }
 
 auto ProcessInput(GLFWwindow *window) -> void {
