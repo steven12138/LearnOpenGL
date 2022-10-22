@@ -45,7 +45,7 @@ auto getView() -> glm::mat4 {
 
 auto getProjection() -> glm::mat4 {
     glm::mat4 projection{1};
-    projection = glm::perspective(glm::radians(45.0f), screenWidth / (float) screenHeight, 0.1f, 100.0f);
+    projection = glm::perspective(glm::radians(45.0f), (float) screenWidth / (float) screenHeight, 0.1f, 100.0f);
     return projection;
 }
 
@@ -225,7 +225,7 @@ auto main() -> int {
         for (auto i = 0; i < 10; i++) {
             glm::mat4 model{1};
             model = glm::translate(model, cubePosition[i]);
-            float angle = 20 * i;
+            float angle = 20.0f * i;
             model = glm::rotate(model, (float) glfwGetTime() * glm::radians(90.0f) + angle,
                                 glm::vec3{0.5, 1, 0});
             shaderChain.setTrans("model", model);
@@ -299,5 +299,5 @@ auto ProcessInput(GLFWwindow *window) -> void {
         cam = glm::vec2{0, 0};
     }
 
-#undef PRESS(KEY)
+#undef PRESS
 }
