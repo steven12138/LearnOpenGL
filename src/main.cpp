@@ -257,21 +257,21 @@ auto ProcessInput(GLFWwindow *window) -> void {
         glfwSetWindowShouldClose(window, true);
     }
     if (PRESS(GLFW_KEY_W)) {
-        pos += glm::vec3{0, 0, 0.1};
+        pos += glm::vec3{-sin(cam.y) * 0.1, 0, cos(cam.y) * 0.1};
     }
 
 
     if (PRESS(GLFW_KEY_S)) {
-        pos += glm::vec3{0, 0, -0.1};
+        pos += glm::vec3{sin(cam.y) * 0.1, 0, -cos(cam.y) * 0.1};
     }
 
 
     if (PRESS(GLFW_KEY_A)) {
-        pos += glm::vec3{0.1, 0, 0};
+        pos += glm::vec3{cos(cam.y) * 0.1, 0, sin(cam.y) * 0.1};
     }
 
     if (PRESS(GLFW_KEY_D)) {
-        pos += glm::vec3{-0.1, 0, 0};
+        pos += glm::vec3{-cos(cam.y) * 0.1, 0, sin(cam.y) * 0.1};
     }
 
     if (PRESS(GLFW_KEY_LEFT_SHIFT)) {
@@ -298,6 +298,5 @@ auto ProcessInput(GLFWwindow *window) -> void {
     if (PRESS(GLFW_KEY_R)) {
         cam = glm::vec2{0, 0};
     }
-
 #undef PRESS
 }
