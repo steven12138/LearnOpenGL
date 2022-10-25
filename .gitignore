@@ -9,3 +9,7 @@
 .idea/*
 .idea/**
 cmake-*/**
+
+build
+build/*
+build/**
