@@ -49,6 +49,8 @@ set(CODE_HEADER ${CODE_HEADER}
 #endforeach ()
 
 set(STATIC_FILE_PATH \"${PROJECT_SOURCE_DIR}\")
+
+add_compile_definitions(STB_IMAGE_IMPLEMENTATION)
 add_compile_definitions(STATIC_FILE_PATH=${STATIC_FILE_PATH})
 
 function(printDIR NAME VAR)

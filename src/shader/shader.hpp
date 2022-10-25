@@ -3,6 +3,7 @@
 #include <glad/glad.h>
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
+#include <string>
 
 namespace shader {
     class Shader {
@@ -54,7 +55,7 @@ namespace shader {
 
         auto set(const std::string &name, int value) const -> void;
 
-        auto setTrans(const std::string &name, glm::mat4& trans) const -> void;
+        auto setTrans(const std::string &name, glm::mat4 &trans) const -> void;
 
     private:
         std::vector<unsigned int> shaderChain{};

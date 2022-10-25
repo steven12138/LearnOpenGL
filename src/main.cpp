@@ -3,18 +3,15 @@
 #include <iostream>
 #include <cmath>
 
-#define STB_IMAGE_IMPLEMENTATION
+#include <glm/glm.hpp>
 
 #include "shader/shader.hpp"
 #include "texture/texture2D.hpp"
 
+
 auto ResizeListener(GLFWwindow *window, int width, int height) -> void;
 
 auto ProcessInput(GLFWwindow *window) -> void;
-
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
 
 auto operator<<(std::ostream &os, const glm::vec4 &b) -> std::ostream & {
@@ -29,17 +26,33 @@ auto getModel() -> glm::mat4 {
     return glm::rotate(model, glm::radians(-55.0f), glm::vec3{1, 0, 0});
 }
 
-glm::vec3 pos{0, 0, -3};
-glm::vec2 cam{0, 0};
+glm::vec3 camPos{0, 0, 3};
+glm::vec3 camFront{0, 0, -1};
+glm::vec3 camUp{0, 1, 0};
+
+//auto getView() -> glm::mat4 {
+//    glm::mat4 view{1};
+//    view = glm::rotate(view, cam.x,
+//                       glm::vec3{1, 0, 0});
+//    view = glm::rotate(view, cam.y,
+//                       glm::vec3{0, 1, 0});
+//
+//    view = glm::translate(view, pos);
+//    return view;
+//}
+
+float pitch = 0;
+float yaw = 0;
 
 auto getView() -> glm::mat4 {
-    glm::mat4 view{1};
-    view = glm::rotate(view, cam.x,
-                       glm::vec3{1, 0, 0});
-    view = glm::rotate(view, cam.y,
-                       glm::vec3{0, 1, 0});
 
-    view = glm::translate(view, pos);
+    glm::vec3 direction;
+    direction.x = cos(glm::radians(pitch)) * cos(glm::radians(yaw));
+    direction.y = sin(glm::radians(pitch));
+    direction.z = cos(glm::radians(pitch)) * sin(glm::radians(yaw));
+    camFront = glm::normalize(direction);
+    glm::mat4 view{1};
+    view = glm::lookAt(camPos, camPos + camFront, camUp);
     return view;
 }
 
@@ -48,6 +61,12 @@ auto getProjection() -> glm::mat4 {
     projection = glm::perspective(glm::radians(45.0f), (float) screenWidth / (float) screenHeight, 0.1f, 100.0f);
     return projection;
 }
+
+auto mouseCallback(GLFWwindow *window, double xPos, double yPos) -> void;
+
+
+float deltaTime = 0;
+float lastFrame = 0;
 
 auto main() -> int {
 
@@ -63,7 +82,7 @@ auto main() -> int {
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-    GLFWwindow *window = glfwCreateWindow(800, 600, "Hello OpenGL", nullptr, nullptr);
+    GLFWwindow *window = glfwCreateWindow(1600, 1200, "Hello OpenGL", nullptr, nullptr);
     if (window == nullptr) {
         std::cerr << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
@@ -77,8 +96,10 @@ auto main() -> int {
         std::cerr << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
-    glViewport(0, 0, 800, 600);
+    glViewport(0, 0, 1600, 1200);
     glfwSetFramebufferSizeCallback(window, ResizeListener);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetCursorPosCallback(window, mouseCallback);
 
 
     int nrAttributes;
@@ -207,6 +228,7 @@ auto main() -> int {
             glm::vec3(-1.3f, 1.0f, -1.5f)
     };
 
+
     while (!glfwWindowShouldClose(window)) {
         //处理输入事件
         ProcessInput(window);
@@ -221,7 +243,9 @@ auto main() -> int {
         wallTexture.use();
 
         glBindVertexArray(VAO);
-
+        float currentFrame = glfwGetTime();
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
         for (auto i = 0; i < 10; i++) {
             glm::mat4 model{1};
             model = glm::translate(model, cubePosition[i]);
@@ -252,51 +276,38 @@ auto ResizeListener(GLFWwindow *window, int width, int height) -> void {
 
 
 auto ProcessInput(GLFWwindow *window) -> void {
-#define PRESS(KEY) (glfwGetKey(window, (KEY)) == GLFW_PRESS)
-    if (PRESS(GLFW_KEY_ESCAPE)) {
+#define PRESS(KEY) (glfwGetKey(window, GLFW_KEY_##KEY) == GLFW_PRESS)
+
+    float camSpeed = 7.5 * deltaTime;
+    if (PRESS(ESCAPE)) {
         glfwSetWindowShouldClose(window, true);
     }
-    if (PRESS(GLFW_KEY_W)) {
-        pos += glm::vec3{-sin(cam.y) * 0.1, 0, cos(cam.y) * 0.1};
-    }
 
-
-    if (PRESS(GLFW_KEY_S)) {
-        pos += glm::vec3{sin(cam.y) * 0.1, 0, -cos(cam.y) * 0.1};
-    }
-
-
-    if (PRESS(GLFW_KEY_A)) {
-        pos += glm::vec3{cos(cam.y) * 0.1, 0, sin(cam.y) * 0.1};
-    }
-
-    if (PRESS(GLFW_KEY_D)) {
-        pos += glm::vec3{-cos(cam.y) * 0.1, 0, sin(cam.y) * 0.1};
-    }
-
-    if (PRESS(GLFW_KEY_LEFT_SHIFT)) {
-        pos += glm::vec3{0, 0.1, 0};
-    }
-
-    if (PRESS(GLFW_KEY_SPACE)) {
-        pos += glm::vec3{0, -0.1, 0};
-    }
-
-    if (PRESS(GLFW_KEY_UP)) {
-        cam += glm::vec2{-0.03, 0};
-    }
-    if (PRESS(GLFW_KEY_DOWN)) {
-        cam += glm::vec2{0.03, 0};
-    }
-    if (PRESS(GLFW_KEY_LEFT)) {
-        cam += glm::vec2{0, -0.03};
-    }
-    if (PRESS(GLFW_KEY_RIGHT)) {
-        cam += glm::vec2{0, 0.03};
-    }
-
-    if (PRESS(GLFW_KEY_R)) {
-        cam = glm::vec2{0, 0};
-    }
+    if (PRESS(W)) camPos += camFront * camSpeed;
+    if (PRESS(S)) camPos -= camFront * camSpeed;
+    if (PRESS(A)) camPos -= glm::normalize(glm::cross(camFront, camUp)) * camSpeed;
+    if (PRESS(D)) camPos += glm::normalize(glm::cross(camFront, camUp)) * camSpeed;
 #undef PRESS
+}
+
+float lastX = 800, lastY = 600;
+float sensitivity = 0.05;
+bool firstMouse = true;
+
+auto mouseCallback(GLFWwindow *window, double xPos, double yPos) -> void {
+    if (firstMouse) {
+        lastX = xPos;
+        lastY = yPos;
+        firstMouse = false;
+    }
+    float xOffset = xPos - lastX;
+    float yOffset = yPos - lastY;
+    lastX = xPos;
+    lastY = yPos;
+    xOffset *= sensitivity;
+    yOffset *= sensitivity;
+    yaw += xOffset;
+    pitch -= yOffset;
+    if (pitch > 89) pitch = 89;
+    if (pitch < -89) pitch = -89;
 }

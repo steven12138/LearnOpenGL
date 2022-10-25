@@ -88,9 +88,9 @@ namespace shader {
 
     auto ShaderProgram::load() -> void {
         programID = glCreateProgram();
-        std::for_each(shaderChain.begin(), shaderChain.end(), [this](const auto &shader) {
+        for (const auto &shader: shaderChain) {
             glAttachShader(programID, shader);
-        });
+        }
         linkShader();
         programIsReady = true;
     }
